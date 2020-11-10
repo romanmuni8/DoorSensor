@@ -139,5 +139,6 @@ function unexportOnClose() { //function to run when exiting program
   LED.unexport(); // Unexport LED GPIO to free resources
   pushButton.unexport(); // Unexport Button GPIO to free resources
 };
+// code deployment test
 
 process.on('SIGINT', unexportOnClose); //run when user closes using ctrl+c
