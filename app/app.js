@@ -76,7 +76,7 @@ pushButton.watch(async function (err, value) { //Watch for hardware interrupts o
 
 async function fnSerial() { // return Pi Serial Number
   const { stdout, stderr } = await exec('cat /proc/cpuinfo | grep Serial');
-  // console.log('stdout:', stdout);
+  console.log('stdout:', stdout);
   var serialSplit = stdout.split(":");
   var serialOnly = serialSplit[1].trim();
   return serialOnly;
@@ -84,8 +84,8 @@ async function fnSerial() { // return Pi Serial Number
 
 async function fnRegion() {  // return AWS region 
   const { stdout, stderr } = await exec('cat ~/.aws/config | grep region');
-  // console.log('stdout:', stdout);
-  // console.log('stderr:', stderr);
+  console.log('stdout:', stdout);
+  console.log('stderr:', stderr);
   var splited = stdout.split("=");
   var Region = splited[1].trim();
   return Region;
@@ -93,8 +93,8 @@ async function fnRegion() {  // return AWS region
 
 async function fnUser() {  // return AWS region 
   const { stdout, stderr } = await exec('whoami');
-  // console.log('stdout:', stdout);
-  // console.log('stderr:', stderr);
+  console.log('stdout:', stdout);
+  console.log('stderr:', stderr);
   return stdout;
 }
 
