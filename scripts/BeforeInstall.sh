@@ -5,3 +5,5 @@
 rm -rf /home/app/doorSensor
 sudo apt-get -y update
 sudo apt-get -y upgrade
+
+# code deploy pipeline test
