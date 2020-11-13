@@ -112,6 +112,25 @@ function writeToDynamoDB(status) { // putItem on dynamoDB table
     TableName: "door_sensor"
    };
 
+   // write to the teble for the project
+   var paramsProject = {
+    Item: {
+     "RKD1.userId": "RK001",
+     "RKD1.serial": globalSerial,
+     "RKD1.last_change": d.prototype.toDateString(),
+     if( status = "Opened!"){
+        "RKD1.sensor_state": true;
+     }else{
+        "RKD1.sensor_state": false;
+     },
+     "RKD1.name": "Roman's Door Sensor",
+
+    },
+    ReturnConsumedCapacity: "TOTAL",
+    TableName: "project_table"
+   };
+
+
    docClient.put(params, function(err, data) {
     if (err) console.log(err, err.stack); // an error occurred
     else     console.log(data);           // successful response  
