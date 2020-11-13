@@ -136,10 +136,10 @@ function writeToDynamoDB(status) { // putItem on dynamoDB table
  });
 
 
-  docClient.put(paramsProject, function(err, data) {
-     if (err) console.log(err, err.stack); // an error occurred
-     else     console.log(data);           // successful response
-  });
+//  docClient.put(paramsProject, function(err, data) {
+//     if (err) console.log(err, err.stack); // an error occurred
+//     else     console.log(data);           // successful response
+//  });
 }
 
 function sendMessage(status) {
