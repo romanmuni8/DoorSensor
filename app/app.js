@@ -63,11 +63,11 @@ pushButton.watch(async function (err, value) { //Watch for hardware interrupts o
   var status;
   if (value == 1) {
     LED.write(0);
-    status = "Closed"
+    status = "Closed!"
   } else
   {
     LED.write(1);
-    status = "Opened"
+    status = "Opened!"
   }
   writeToDynamoDB(status);
     sendMessage(status);
@@ -108,7 +108,7 @@ function writeToDynamoDB(status) { // putItem on dynamoDB table
      "date_time": seconds,
      "status": status     
     },     
-    ReturnConsumedCapacity: "TOTAL", 
+    ReturnConsumedCapacity: "TOTAL",
     TableName: "door_sensor"
    };
 
