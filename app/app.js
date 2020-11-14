@@ -115,7 +115,7 @@ function writeToDynamoDB(status) { // putItem on dynamoDB table
     TableName: "projectTable",
     Item: {
      "DoorSensor":{
-        "userID" :"RK001",
+        "userID" : { "S" :"RK001"},
         "RKD1":{
               "device_type": {"S": "Real"},
               "last_change": { "S": "Changed at ...."},
