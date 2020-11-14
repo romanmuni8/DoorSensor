@@ -112,8 +112,10 @@ function writeToDynamoDB(status) { // putItem on dynamoDB table
     TableName: "door_sensor"
    };
     var paramsProject = {
+    TableName: "projectTable",
     Item: {
      "DoorSensor":{
+        "userID" :"RK001",
         "RKD1":{
               "device_type": {"S": "Real"},
               "last_change": { "S": "Changed at ...."},
@@ -123,8 +125,7 @@ function writeToDynamoDB(status) { // putItem on dynamoDB table
 
         }
      }
-    },
-    TableName: "projectTable"
+    }
     };
 //{    "RKD1" : { "M" : {        "device_type" : { "S" : "Real" },        "last_change" : { "S" : "11/12/20" },        "name" : { "S" : "Roman's Door Sensor" },        "sensor_state" : { "BOOL" : false },        "serial" : { "S" : "00000000021e8b8a" }      }    },    "RKD2" : { "M" : {        "device_type" : { "S" : "Fake" },        "last_change" : { "S" : "11/12/20" },        "name" : { "S" : "Roman's Door Sensor 2" },        "sensor_state" : { "BOOL" : false },        "serial" : { "S" : "RK001" }      }    }  }
    docClientProject.put(paramsProject, function(err, data) {
