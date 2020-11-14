@@ -116,6 +116,24 @@ function writeToDynamoDB(status) { // putItem on dynamoDB table
     if (err) console.log(err, err.stack); // an error occurred
     else     console.log(data);           // successful response
  });
+     var paramsProject = {
+     //TableName: "projectTable",
+     TableName: "test",
+     Item: {
+         "name": "B",
+         "age" : "10"
+     },
+          ReturnConsumedCapacity: "TOTAL",
+          TableName: "door_sensor"
+     };
+       docClientProject.put(paramsProject, function(err, data) {
+         if (err) console.log(err, err.stack); // an error occurred
+          else console.log(data);           // successful response
+      });
+
+
+
+
 }
 
 //    var paramsProject = {
