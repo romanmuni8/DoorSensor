@@ -112,20 +112,22 @@ function writeToDynamoDB(status) { // putItem on dynamoDB table
     TableName: "door_sensor"
    };
     var paramsProject = {
-    TableName: "projectTable",
+    //TableName: "projectTable",
+    TableName: "test",
     Item: {
-     "DoorSensor":{
-        "userID" : { "S" :"RK001"},
-        "RKD1":{
-              "M":{
-              "device_type": {"S": "Real"},
-              "last_change": { "S": "Changed at ...."},
-              "name" : {"S" : "Roman's Door Sensor" },
-              "sensor_state" : { "BOOL" : true },
-              "serial" : { "S" : "00000000021e8b8a" }
-              }
-
-        }
+        "name": "B",
+        "age" : "10"
+//     "DoorSensor":{
+//        "userID" : { "S" :"RK001"},
+//        "RKD1":{
+//              "M":{
+//              "device_type": {"S": "Real"},
+//              "last_change": { "S": "Changed at ...."},
+//              "name" : {"S" : "Roman's Door Sensor" },
+//              "sensor_state" : { "BOOL" : true },
+//              "serial" : { "S" : "00000000021e8b8a" }
+//              }
+//        }
      }
     }
     };
