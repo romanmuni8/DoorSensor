@@ -111,12 +111,19 @@ function writeToDynamoDB(status) { // putItem on dynamoDB table
     ReturnConsumedCapacity: "TOTAL",
     TableName: "door_sensor"
    };
-    var paramsProject = {
-    //TableName: "projectTable",
-    TableName: "test",
-    Item: {
-        "name": "B",
-        "age" : "10"
+
+   docClient.put(params, function(err, data) {
+    if (err) console.log(err, err.stack); // an error occurred
+    else     console.log(data);           // successful response
+ });
+}
+
+//    var paramsProject = {
+//    //TableName: "projectTable",
+//    TableName: "test",
+//    Item: {
+//        "name": "B",
+//        "age" : "10"
 //     "DoorSensor":{
 //        "userID" : { "S" :"RK001"},
 //        "RKD1":{
@@ -128,21 +135,15 @@ function writeToDynamoDB(status) { // putItem on dynamoDB table
 //              "serial" : { "S" : "00000000021e8b8a" }
 //              }
 //        }
-     }
-    };
-    };
+//
+ //   };
+
 //{    "RKD1" : { "M" : {        "device_type" : { "S" : "Real" },        "last_change" : { "S" : "11/12/20" },        "name" : { "S" : "Roman's Door Sensor" },        "sensor_state" : { "BOOL" : false },        "serial" : { "S" : "00000000021e8b8a" }      }    },    "RKD2" : { "M" : {        "device_type" : { "S" : "Fake" },        "last_change" : { "S" : "11/12/20" },        "name" : { "S" : "Roman's Door Sensor 2" },        "sensor_state" : { "BOOL" : false },        "serial" : { "S" : "RK001" }      }    }  }
-   docClientProject.put(paramsProject, function(err, data) {
-    if (err) console.log(err, err.stack); // an error occurred
-     else console.log(data);           // successful response
- });
-   docClient.put(params, function(err, data) {
-    if (err) console.log(err, err.stack); // an error occurred
-    else     console.log(data);           // successful response  
- });
+//  docClientProject.put(paramsProject, function(err, data) {
+//    if (err) console.log(err, err.stack); // an error occurred
+//     else console.log(data);           // successful response
+// });
 
-
-}
 
 function sendMessage(status) {
   var d = new Date();
