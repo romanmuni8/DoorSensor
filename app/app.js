@@ -51,7 +51,7 @@ async function fMain() {
       writeToDynamoDB(status);
       sendMessage(status);
   } catch (error) {
-    console.error(error);
+     console.error(error);
   }
 }
 
