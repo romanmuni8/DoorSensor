@@ -49,7 +49,7 @@ async function fMain() {
       status = "Closed!"
     }
       writeToDynamoDB(status);
-      // sendMessage(status);
+      sendMessage(status);
   } catch (error) {
     console.error(error);
   }
