@@ -1,6 +1,6 @@
-var AWS = require('aws-sdk'); // SDK for Nodejs. 
+var AWS = require('aws-sdk'); // SDK for Nodejs.
 var docClient; // AWS.DynamoDB.DocumentClient();
-var docClientProject;//
+
 var globalSerial; // Pi Serial Number
 
 var Gpio = require('onoff').Gpio; //include onoff to interact with the GPIO
@@ -28,9 +28,9 @@ async function fMain() {
     var user = await fnUser();  // get linux user
     console.log(`User: ${user}`);
 
-    AWS.config.update({region : myRegion});
+    AWS.config.update({region: myRegion});
     docClient = new AWS.DynamoDB.DocumentClient();  // client to use with dynamoDB
-    docClientProject = new AWS.DynamoDB.DocumentClient();  // client to use with dynamoDB for integration
+    
     // Parameter Store
     const awsParamStore = require( 'aws-param-store' );
     //this command is sync, NOT async
@@ -49,9 +49,9 @@ async function fMain() {
       status = "Closed!"
     }
       writeToDynamoDB(status);
-      sendMessage(status);
+      // sendMessage(status);
   } catch (error) {
-     console.error(error);
+    console.error(error);
   }
 }
 
@@ -63,20 +63,20 @@ pushButton.watch(async function (err, value) { //Watch for hardware interrupts o
   var status;
   if (value == 1) {
     LED.write(0);
-    status = "Closed!"
+    status = "Closed"
   } else
   {
     LED.write(1);
-    status = "Opened!"
+    status = "Opened"
   }
   writeToDynamoDB(status);
-    sendMessage(status);
+  // sendMessage(status);
 
 });
 
 async function fnSerial() { // return Pi Serial Number
   const { stdout, stderr } = await exec('cat /proc/cpuinfo | grep Serial');
-  console.log('stdout:', stdout);
+  // console.log('stdout:', stdout);
   var serialSplit = stdout.split(":");
   var serialOnly = serialSplit[1].trim();
   return serialOnly;
@@ -84,8 +84,8 @@ async function fnSerial() { // return Pi Serial Number
 
 async function fnRegion() {  // return AWS region 
   const { stdout, stderr } = await exec('cat ~/.aws/config | grep region');
-  console.log('stdout:', stdout);
-  console.log('stderr:', stderr);
+  // console.log('stdout:', stdout);
+  // console.log('stderr:', stderr);
   var splited = stdout.split("=");
   var Region = splited[1].trim();
   return Region;
@@ -93,8 +93,8 @@ async function fnRegion() {  // return AWS region
 
 async function fnUser() {  // return AWS region 
   const { stdout, stderr } = await exec('whoami');
-  console.log('stdout:', stdout);
-  console.log('stderr:', stderr);
+  // console.log('stdout:', stdout);
+  // console.log('stderr:', stderr);
   return stdout;
 }
 
@@ -108,57 +108,15 @@ function writeToDynamoDB(status) { // putItem on dynamoDB table
      "date_time": seconds,
      "status": status     
     },     
-    ReturnConsumedCapacity: "TOTAL",
+    ReturnConsumedCapacity: "TOTAL", 
     TableName: "door_sensor"
    };
 
    docClient.put(params, function(err, data) {
     if (err) console.log(err, err.stack); // an error occurred
-    else     console.log(data);           // successful response
+    else     console.log(data);           // successful response  
  });
-     var paramsProject = {
-     //TableName: "projectTable",
-     TableName: "test",
-     Item: {
-         "name": "B",
-         "age" : "10"
-     },
-          ReturnConsumedCapacity: "TOTAL",
-          TableName: "door_sensor"
-     };
-       docClientProject.put(paramsProject, function(err, data) {
-         if (err) console.log(err, err.stack); // an error occurred
-          else console.log(data);           // successful response
-      });
-
 }
-
-//    var paramsProject = {
-//    //TableName: "projectTable",
-//    TableName: "test",
-//    Item: {
-//        "name": "B",
-//        "age" : "10"
-//     "DoorSensor":{
-//        "userID" : { "S" :"RK001"},
-//        "RKD1":{
-//              "M":{
-//              "device_type": {"S": "Real"},
-//              "last_change": { "S": "Changed at ...."},
-//              "name" : {"S" : "Roman's Door Sensor" },
-//              "sensor_state" : { "BOOL" : true },
-//              "serial" : { "S" : "00000000021e8b8a" }
-//              }
-//        }
-//
- //   };
-
-//{    "RKD1" : { "M" : {        "device_type" : { "S" : "Real" },        "last_change" : { "S" : "11/12/20" },        "name" : { "S" : "Roman's Door Sensor" },        "sensor_state" : { "BOOL" : false },        "serial" : { "S" : "00000000021e8b8a" }      }    },    "RKD2" : { "M" : {        "device_type" : { "S" : "Fake" },        "last_change" : { "S" : "11/12/20" },        "name" : { "S" : "Roman's Door Sensor 2" },        "sensor_state" : { "BOOL" : false },        "serial" : { "S" : "RK001" }      }    }  }
-//  docClientProject.put(paramsProject, function(err, data) {
-//    if (err) console.log(err, err.stack); // an error occurred
-//     else console.log(data);           // successful response
-// });
-
 
 function sendMessage(status) {
   var d = new Date();
@@ -181,6 +139,5 @@ function unexportOnClose() { //function to run when exiting program
   LED.unexport(); // Unexport LED GPIO to free resources
   pushButton.unexport(); // Unexport Button GPIO to free resources
 };
-// code deployment test
 
 process.on('SIGINT', unexportOnClose); //run when user closes using ctrl+c
