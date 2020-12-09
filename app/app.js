@@ -70,7 +70,7 @@ pushButton.watch(async function (err, value) { //Watch for hardware interrupts o
     status = "Opened"
   }
   writeToDynamoDB(status);
-  // sendMessage(status);
+  sendMessage(status);
 
 });
 
